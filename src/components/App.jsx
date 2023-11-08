@@ -52,30 +52,34 @@ class Feedback extends Component {
     bad: this.props.initialValue,
   };
 
-  //   handleIncFeedback = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       [option]: prevState[option] + 1,
-  //     };
-  //   });
-  // }
+  countTotalFeedback = () => {};
 
-  handleIncGood = () => {
-    this.setState((state, props) => ({
-      good: state.good + props.step,
-    }));
+  countPositiveFeedbackPercentage = () => {};
+
+  handleIncFeedback = () => {
+    this.setState(prevState => {
+      return {
+        [option]: prevState[option] + 1,
+      };
+    });
   };
 
-  handleIncNeytral = () => {
-    this.setState((state, props) => ({
-      neytral: state.neytral + props.step,
-    }));
-  };
-  handleIncBad = () => {
-    this.setState((state, props) => ({
-      bad: state.bad + props.step,
-    }));
-  };
+  // handleIncGood = () => {
+  //   this.setState((state, props) => ({
+  //     good: state.good + props.step,
+  //   }));
+  // };
+
+  // handleIncNeytral = () => {
+  //   this.setState((state, props) => ({
+  //     neytral: state.neytral + props.step,
+  //   }));
+  // };
+  // handleIncBad = () => {
+  //   this.setState((state, props) => ({
+  //     bad: state.bad + props.step,
+  //   }));
+  // };
 
   render() {
     const { step } = this.props;
@@ -83,7 +87,7 @@ class Feedback extends Component {
     return (
       <div>
         <span>Please leave feedback</span>
-        <button type="button" onClick={this.handleIncGood}>
+        <button type="button" onClick={this.handleIncFeedback()}>
           Good
         </button>
         <button type="button" onClick={this.handleIncNeytral}>
