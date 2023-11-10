@@ -1,6 +1,7 @@
 // import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 import { FeedbackOptions } from '../components/FeedbackOptions';
+import { Component } from 'react';
 
 // class Counter extends Component {
 //   static defaultProps = {
@@ -41,13 +42,38 @@ import { FeedbackOptions } from '../components/FeedbackOptions';
 //   }
 // }
 
-export const App = () => {
-  return (
-    <div>
-      <FeedbackOptions
-        options={Object.keys(this.state)}
-        onLeaveFeedback={this.handleFeedback}
-      />
-    </div>
-  );
-};
+export class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+  handleFeedback = option => {
+    this.setState(prevState => {
+      return {
+        [option]: prevState[option] + 1,
+      };
+    });
+  };
+
+  countTotalFeedback = () => {
+    return;
+  };
+
+  countPositiveFeedbackPercentage = () => {};
+
+  render() {
+    return (
+      <div>
+        <FeedbackOptions
+          options={Object.keys(this.state)}
+          onLeaveFeedback={this.handleFeedback}
+        />
+        <h3>Statistics</h3>
+        <span>Good:{this.state.good}</span>
+        <span>Neutral:{this.state.neutral}</span>
+        <span>Bad:{this.state.bad}</span>
+      </div>
+    );
+  }
+}
