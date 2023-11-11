@@ -1,58 +1,17 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
-// class Counter extends Component {
-//   static defaultProps = {
-//     step: 1,
-//     initialValue: 0,
-//   };
+import { FeedbackOptions } from './FeedbackOptions';
+import { Statistics } from './Statistics';
+import { Notification } from './Notification';
+import { Section } from './Section';
+import { Component } from 'react';
 
-//   state = {
-//     value: this.props.initialValue,
-//   };
-
-//   handleIncrement = () => {
-//     this.setState((state, props) => ({
-//       value: state.value + props.step,
-//     }));
-//   };
-
-//   handleDecrement = () => {
-//     this.setState((state, props) => ({
-//       value: state.value - props.step,
-//     }));
-//   };
-
-//   render() {
-//     const { step } = this.props;
-
-//     return (
-//       <div>
-//         <span>{this.state.value}</span>
-//         <button type="button" onClick={this.handleIncrement}>
-//           Increment by {step}
-//         </button>
-//         <button type="button" onClick={this.handleDecrement}>
-//           Decrement by {step}
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-
-
-class FeedbackOptions extends Component {
+export class App extends Component {
   state = {
     good: 0,
-    neytral: 0,
+    neutral: 0,
     bad: 0,
   };
-
-  countTotalFeedback = () => {};
-
-  countPositiveFeedbackPercentage = () => {};
-
-  handleFeedback = () => {
+  handleFeedback = option => {
     this.setState(prevState => {
       return {
         [option]: prevState[option] + 1,
@@ -61,37 +20,40 @@ class FeedbackOptions extends Component {
   };
 
 
-  render() {
-    const { step } = this.props;
+  countTotalFeedback = () => {
+    return this.state.good + this.state.neutral + this.state.bad;
+  };
 
+  countPositiveFeedbackPercentage = () => {
+    return Math.round((this.state.good / this.countTotalFeedback()) * 100);
+  };
+
+
+  render() {
     return (
       <div>
-        {/* <span>Please leave feedback</span> */}
-        <button type="button" onClick={this.handleFeedback()}>
-          Good
-        </button>
-        <button type="button" onClick={this.onLeaveFeedback()}>
-          Neytral
-        </button>
-        <button type="button" onClick={this.onLeaveFeedback()}>
-          Bad
-        </button>
-        <h1>Statistics</h1>
-        <p>Good: {this.state.good}</p>
-        <p>Neytral: {this.state.neytral}</p>
-        <p>Bad: {this.state.bad}</p>
+
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.handleFeedback}
+          />
+        </Section>
+
+        {this.countTotalFeedback() > 0 && (
+          <Section title="Statistics">
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            ></Statistics>
+          </Section>
+        )}
+
+        {/* <Notification message="There is no feedback" /> */}
       </div>
     );
   }
 }
-
-export const App = () => {
-  return (
-    <div>
-      {/* <Counter step={5} /> */}
-      {/* <Section title=""> */}
-        <FeedbackOptions options={["good", "neytral", "bad"]} onLeaveFeedback={ } />
-      {/* </Section> */}
-    </div>
-  );
-};
