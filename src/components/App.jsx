@@ -1,3 +1,4 @@
+
 import { FeedbackOptions } from './FeedbackOptions';
 import { Statistics } from './Statistics';
 import { Notification } from './Notification';
@@ -18,6 +19,7 @@ export class App extends Component {
     });
   };
 
+
   countTotalFeedback = () => {
     return this.state.good + this.state.neutral + this.state.bad;
   };
@@ -26,9 +28,11 @@ export class App extends Component {
     return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
+
   render() {
     return (
       <div>
+
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={Object.keys(this.state)}
