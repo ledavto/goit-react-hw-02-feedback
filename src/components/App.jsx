@@ -1,4 +1,3 @@
-
 import { FeedbackOptions } from './FeedbackOptions';
 import { Statistics } from './Statistics';
 import { Notification } from './Notification';
@@ -19,7 +18,6 @@ export class App extends Component {
     });
   };
 
-
   countTotalFeedback = () => {
     return this.state.good + this.state.neutral + this.state.bad;
   };
@@ -28,11 +26,9 @@ export class App extends Component {
     return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
-
   render() {
     return (
       <div>
-
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={Object.keys(this.state)}
@@ -40,7 +36,7 @@ export class App extends Component {
           />
         </Section>
 
-        {this.countTotalFeedback() > 0 && (
+        {this.countTotalFeedback() > 0 ? (
           <Section title="Statistics">
             <Statistics
               good={this.state.good}
@@ -50,9 +46,9 @@ export class App extends Component {
               positivePercentage={this.countPositiveFeedbackPercentage()}
             ></Statistics>
           </Section>
+        ) : (
+          <Notification message="There is no feedback" />
         )}
-
-        {/* <Notification message="There is no feedback" /> */}
       </div>
     );
   }
